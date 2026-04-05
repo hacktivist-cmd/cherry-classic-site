@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0d0106;
+    color: #fff0f3;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+  .serif {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(15, 10, 12, 0.7);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 192, 203, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(255, 77, 109, 0.05);
+  }
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: 0.8s;
+  }
+  .shimmer:hover::after {
+    left: 100%;
+    top: 100%;
+  }
+  .outline-text {
+    -webkit-text-stroke: 1px #ff8fa3;
+    color: transparent;
+    opacity: 0.4;
+  }
+  .bg-glow {
+    position: fixed;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 77, 109, 0.15) 0%, transparent 70%);
+    filter: blur(60px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ff4d6d;
+    border-radius: 10px;
+  }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+@keyframes softBloom {
+  0% { filter: contrast(1) brightness(1); }
+  50% { filter: contrast(1.1) brightness(1.2) sepia(0.2) hue-rotate(-10deg); }
+  100% { filter: contrast(1) brightness(1); }
+}
+.bloom-active {
+  animation: softBloom 2s forwards;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.asymmetric-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .asymmetric-grid { grid-template-columns: 1fr; }
+}
+html {
+  scroll-behavior: smooth;
+}
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in {
+  animation: slideIn 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
